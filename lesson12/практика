@@ -1,0 +1,184 @@
+<?php
+
+//include_once "autoload.php";
+//
+//trait HasName
+//{
+//    protected $name;
+//    public function __construct()
+//    {
+//
+//    }
+//
+//    function setName($name)
+//    {
+//        $this->name = $name;
+//    }
+//
+//    function getName()
+//    {
+//        return $this->name;
+//    }
+//}
+//
+//trait HasAge
+//{
+//    protected $age;
+//    public function __construct()
+//    {
+//    }
+//
+//    function setAge($age)
+//    {
+//        $this->age = $age;
+//    }
+//
+//    function getAge()
+//    {
+//        return $this->age;
+//    }
+//}
+//
+//class Person
+//{
+//    use HasName
+//    {
+//        __construct as hasNameConstruct;
+//    }
+//    use HasAge
+//    {
+//        __construct as hasAgeConstruct;
+//    }
+//
+//    public function __construct()
+//    {
+//        $this->setName($this->name);
+//        $this->setAge($this->age);
+//    }
+//
+//    public function setName($name)
+//    {
+////        $this->name = "My name is -> " . $name;
+//        $this->traitSetName("My name is -> " . $name);
+//    }
+//}
+//$person = new Person();
+//$person->setName('hello');
+//$person->setAge(20);
+//echo $person->getName();
+
+
+//
+//interface WaterAnimal
+//{
+//    function swim();
+//}
+//interface MammalAnimal
+//{
+//    function walk();
+//}
+//
+//trait CanWalk{
+//    function walk(){
+//    }
+//}
+//trait CanSwim{
+//    function swim(){
+//    }
+//}
+//trait BaseMammal{
+//    use CanSwim, CanWalk;
+//}
+//
+//class Bear implements MammalAnimal{
+//    use BaseMammal;
+//}
+//
+//class Wolf1 implements MammalAnimal{
+//    use CanWalk;
+//}
+//
+//class Fish implements WaterAnimal {
+//    use CanSwim{ swim as baseSwim; }
+//
+//    public function swim()
+//    {
+//        //----
+//        $this->baseSwim();
+//    }
+//}
+
+
+
+
+
+
+
+
+//PRACTICE
+//interface AnimalInterface {
+//    function eat();
+//    function sleep();
+//    function breed();
+//}
+//interface BirdInterface{
+//    function fly();
+//}
+//interface PredatorInterface {
+//    function hunt();
+//}
+//interface RodentsInterfase{
+//    function storeFood();
+//}
+//
+//trait CanEat
+//{
+//    function eat(){}
+//}
+//trait CanFly
+//{
+//    function fly(){}
+//}
+//trait CanSleep
+//{
+//    function sleep(){}
+//}
+//trait CanHunt
+//{
+//    function hunt(){}
+//}
+//trait CanStoreFood
+//{
+//    function storeFood(){}
+//}
+//trait CanBreed
+//{
+//    function breed(){}
+//}
+//trait CanLiveHome
+//{
+//    function liveHome(){}
+//}
+//
+//class Bird implements AnimalInterface, BirdInterface
+//{
+//    use CanEat, CanSleep, CanBreed, CanFly;
+//}
+//class Eagle implements BirdInterface
+//{
+//    use CanEat, CanSleep, CanBreed, CanFly, CanHunt;
+//}
+//class Wolf implements AnimalInterface, PredatorInterface
+//{
+//    use CanEat, CanSleep, CanBreed, CanHunt;
+//}
+//class Hamster implements AnimalInterface, RodentsInterfase
+//{
+//    use CanEat, CanSleep, CanBreed, CanStoreFood;
+//}
+//class Cat implements AnimalInterface{
+//    use CanEat, CanSleep, CanBreed, CanLiveHome;
+//}
+//class Dog implements AnimalInterface {
+//    use CanEat, CanSleep, CanBreed, CanLiveHome;
+//}
