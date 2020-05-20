@@ -1,0 +1,19 @@
+{
+  "name": "step/mvc",
+  "type": "project",
+  "require": {
+    "php": "^7.3",
+    "klein/klein": "^2.1",
+    "filp/whoops": "^2.7",
+    "smarty/smarty": "^3.1",
+    "php-activerecord/php-activerecord": "^1.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "./app"
+    },
+    "files": [
+      "./app/Core/helpers.php"
+    ]
+  }
+}
