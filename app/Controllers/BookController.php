@@ -8,28 +8,27 @@ use App\Models\Book;
 
 class BookController
 {
-    function store()
-    {
+
+    function store() {
+
         $book = new Book();
         $book->name = request()->param('name');
         $book->author = request()->param('author');
         $book->save();
 
-        response()->redirect('/');
+        return response()->redirect('/');
     }
 
-    function delete()
-    {
+    function delete() {
         $id = request()->param('id');
         /** @var Book $book */
         $book = Book::find_by_id($id);
 
-        if(empty($book))
-        {
+        if (empty($book))
             return response()->code(404);
-        }
 
         $book->delete();
         return response()->redirect('/');
     }
+
 }
