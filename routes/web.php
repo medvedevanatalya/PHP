@@ -1,8 +1,15 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'AnimalController@index')->name('index');
 
-Route::post('/animals', 'AnimalController@addAnimal')->name('animals.add');
+Auth::routes();
+
+Route::redirect('/', '/animals');
+
+Route::middleware('auth')
+    ->group(function (){
+        Route::resource('animals', 'AnimalController');
+    });
 

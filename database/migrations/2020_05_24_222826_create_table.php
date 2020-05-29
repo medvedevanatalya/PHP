@@ -11,12 +11,22 @@ class CreateTable extends Migration
     {
         Schema::create('animals', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+
             $table->string('name');
             $table->string('animal');
-            $table->string('breed');
+            $table->string('breed')->nullable();
             $table->string('gender');
-            $table->string('age');
+            $table->float('age')->nullable();
+            $table->string('description')->nullable();
+            $table->string('additional_info')->nullable();
+
             $table->timestamps();
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
         });
     }
 
