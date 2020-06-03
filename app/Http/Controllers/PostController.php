@@ -3,83 +3,101 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\User;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index($user_id = null)
     {
-        //
+        $user = auth()->user();
+
+        //все посты
+        $posts = Post::where('publish', 1)->orderBy('created_at', 'desc')->paginate(5);
+
+        return view('posts.index', compact('user', 'posts'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        $this->authorize('create', Post::class);
+
+        return view('posts.form');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $this->authorize('create', Post::class);
+
+        $data = $this->validated($request);
+        /** @var HasMany $posts */
+        $posts = auth()->user()->posts();
+
+        $newPost = $posts->create($data);
+
+        return redirect()->route('posts.show', $newPost);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Post  $post
-     * @return \Illuminate\Http\Response
-     */
     public function show(Post $post)
     {
-        //
+        $this->authorize('view', $post);
+
+        $comments = $post->comments;
+
+        return view('posts.show', compact('post', 'comments'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Post  $post
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Post $post)
     {
-        //
+        $this->authorize('update', $post);
+
+        return view('posts.form', compact('post'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Post  $post
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Post $post)
     {
-        //
+        $this->authorize('update', $post);
+
+        $data = $this->validated($request, $post);
+
+        $post->update($data);
+
+        return redirect()->route('posts.show', $post);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Post  $post
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Post $post)
     {
-        //
+        $this->authorize('delete', $post);
+
+        $post->delete();
+
+        return redirect()->route('posts.index');
+    }
+
+    public function toggle(Post $post)
+    {
+        $this->authorize('update', $post);
+
+        $post->publish = !$post->publish;
+        $post->save();
+
+        return redirect()->route('posts.show', $post);
+    }
+
+    protected function validated(Request $request, Post $post = null)
+    {
+        $rules = [
+            'title' => 'required|min:5|max:100|unique:posts',
+            'slug' => 'nullable',
+            'publish' => 'boolean',
+            'body' => 'required'
+        ];
+
+        if($post)
+            $rules['title'] .= ',title,' . $post->id;
+
+        return $request->validate($rules);
     }
 }
