@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    @yield('head')
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -59,8 +60,12 @@
                                 <a href="{{ route('posts.create') }}" class="ml-auto btn btn-success">
                                     Добавить пост
                                 </a>
-                                <a href="#" class="btn btn-success">Мои посты</a>
-                                <a href="#" class="btn btn-success">Мой профиль</a>
+                                <a href="{{ route('user.all-posts') }}" class="btn btn-success">
+                                    Мои посты
+                                </a>
+                                <a href="{{ route('user.profile', Auth::user()->id) }}" class="btn btn-success">
+                                    Мой профиль
+                                </a>
                             @endif
 
                             <li class="nav-item dropdown">

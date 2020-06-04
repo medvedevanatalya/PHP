@@ -4,6 +4,11 @@ $update = isset($post);
 
 @extends('layouts.app')
 
+{{--@section('head')--}}
+{{--    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>--}}
+{{--    <script>tinymce.init({selector:'textarea'});</script>--}}
+{{--@endsection--}}
+
 @section('header')
     <h2 class="mb-3">{{ $update ? "Редактировать \"{$post->title}\"" : 'Новый пост'}}</h2>
 @endsection
@@ -52,6 +57,17 @@ $update = isset($post);
                        id="publish"
                        @if((old('publish') ?? ($post->publish ?? false)) == '1') checked @endif>
                 <label for="publish" class="custom-control-label">Опубликовать?</label>
+            </div>
+
+            <div class="form-group">
+                <label for="tag">Тэг</label>
+                <input class="form-control @error('tag') is-invalid @enderror"
+                       type="text"
+                       name="tag"
+                       id="tag">
+                @error('tag')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
 
             <button class="btn btn-success">

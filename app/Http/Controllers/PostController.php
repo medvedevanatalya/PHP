@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Tag;
 use App\User;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
@@ -10,11 +11,11 @@ use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
-    public function index($user_id = null)
+    public function index()
     {
         $user = auth()->user();
 
-        //все посты
+        //все опубликованные посты
         $posts = Post::where('publish', 1)->orderBy('created_at', 'desc')->paginate(5);
 
         return view('posts.index', compact('user', 'posts'));
@@ -24,7 +25,9 @@ class PostController extends Controller
     {
         $this->authorize('create', Post::class);
 
-        return view('posts.form');
+        $tags = Tag::pluck('tag', 'id')->all();
+
+        return view('posts.form', compact('tags'));
     }
 
     public function store(Request $request)
@@ -37,6 +40,9 @@ class PostController extends Controller
 
         $newPost = $posts->create($data);
 
+        $tag['tag'] = $request->input('tag');
+        $newPost->tags()->create($tag);
+
         return redirect()->route('posts.show', $newPost);
     }
 
@@ -44,9 +50,11 @@ class PostController extends Controller
     {
         $this->authorize('view', $post);
 
-        $comments = $post->comments;
+        $user = auth()->user();
 
-        return view('posts.show', compact('post', 'comments'));
+        $comments = $post->comments->sortByDesc('created_at');
+
+        return view('posts.show', compact('post', 'comments', 'user'));
     }
 
     public function edit(Post $post)
@@ -64,6 +72,9 @@ class PostController extends Controller
 
         $post->update($data);
 
+        $tag['tag'] = $request->input('tag');
+        $post->tags()->update($tag);
+
         return redirect()->route('posts.show', $post);
     }
 
@@ -73,7 +84,7 @@ class PostController extends Controller
 
         $post->delete();
 
-        return redirect()->route('posts.index');
+        return redirect()->route('user.all-posts');
     }
 
     public function toggle(Post $post)

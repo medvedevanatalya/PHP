@@ -11,8 +11,8 @@ class Tag extends Model
     ];
 
     // возвращает все посты этого тэги
-    public function post()
+    public function posts()
     {
-        return $this->belongsToMany(Post::class);
+        return $this->belongsToMany(Post::class, 'post_tag', 'tag_id', 'post_id');
     }
 }
