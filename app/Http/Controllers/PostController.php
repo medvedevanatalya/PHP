@@ -16,7 +16,7 @@ class PostController extends Controller
         $user = auth()->user();
 
         //все опубликованные посты
-        $posts = Post::where('publish', 1)->orderBy('created_at', 'desc')->paginate(5);
+        $posts = Post::where('publish', 1)->orderBy('created_at', 'desc')->paginate(2);
 
         return view('posts.index', compact('user', 'posts'));
     }

@@ -13,6 +13,7 @@
             <li class="list-group-item">
                 Зарегистрированы от {{ $user->created_at->format('M d, Y a\t h:i a') }}
             </li>
+
             <li class="list-group-item panel-body">
                 <table class="table-padding">
                     <style>
@@ -29,6 +30,7 @@
                             </td>
                         @endif
                     </tr>
+
                     <tr>
                         <td>Опубликованных постов: </td>
                         <td>{{ $posts_publish_count }}</td>
@@ -40,6 +42,7 @@
                             </td>
                         @endif
                     </tr>
+
                     <tr>
                         <td>Не опубликованных постов: </td>
                         <td>{{$posts_draft_count}}</td>
@@ -53,6 +56,7 @@
                     </tr>
                 </table>
             </li>
+
             <li class="list-group-item">
                 Всего комментариев: {{ $comments_count }}
             </li>
@@ -60,6 +64,7 @@
     </div>
     <hr>
     <hr>
+
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3>Последние посты</h3>
@@ -80,10 +85,12 @@
     </div>
     <hr>
     <hr>
+
     <div class="panel panel-default">
         <div class="panel-heading">
             <h3>Последние комментарии</h3>
         </div>
+
         <div class="list-group">
             @forelse($latest_comments as $latest_comment)
                 <div class="list-group-item">
@@ -97,8 +104,11 @@
                 </div>
             @empty
                 <div class=list-group-item">
-                <p>У автора нет комментариев. Последние 5 комментариев будут выведены здесь</p>
-        </div>
+                    <p>
+                        У автора нет комментариев. Последние 5 комментариев будут выведены здесь
+                    </p>
+                </div>
+
             @endforelse
         </div>
     </div>

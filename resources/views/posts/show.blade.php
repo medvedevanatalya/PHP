@@ -14,11 +14,18 @@
     <div class="row">
         <div class="col-lg-8">
             <p class="lead">
-                by <a href="{{ route('user.profile', $post->user->id) }}">{{ $post->user->name }}</a>
+                by
+                <a href="{{ route('user.profile', $post->user->id) }}">
+                    {{ $post->user->name }}
+                </a>
             </p>
             <hr>
-            <p>Дата создания поста: {{ $post->created_at->format('M d,Y \a\t h:i a') }}</p>
+
+            <p>
+                Дата создания поста: {{ $post->created_at->format('M d,Y \a\t h:i a') }}
+            </p>
             <hr>
+
             <form class="ml-auto" action="{{ route('posts.destroy', $post) }}" method="POST">
                 @csrf
                 @method('DELETE')
@@ -45,7 +52,9 @@
             </form>
             <hr>
 
-            <p class="lead">{{ $post->body }}</p>
+            <p class="lead">
+                {{ $post->body }}
+            </p>
             <hr>
 
             Тэги:
@@ -58,7 +67,9 @@
 
             @if($post->publish)
                 <div class="card my-4">
-                    <h5 class="card-header">Ваш комментарий:</h5>
+                    <h5 class="card-header">
+                        Ваш комментарий:
+                    </h5>
                     <div class="card-body">
                         <form action="{{ route('comments.store') }}" method="POST">
                             @csrf
@@ -71,10 +82,14 @@
                                     name="comment"
                                 placeholder="Введите Ваш комментарий..."></textarea>
                             </div>
-                            <button class="btn btn-success">Отправить</button>
+
+                            <button class="btn btn-success">
+                                Отправить
+                            </button>
                         </form>
                     </div>
                 </div>
+
                 @forelse($comments as $comment)
                         <div class="list-group pb-2">
                             <div class="list-group-item">
@@ -91,14 +106,16 @@
                                         </form>
                                     @endif
                                 </div>
+
                                 <h3>
                                     @ {{ $comment->user->name }}
                                 </h3>
+
                                 <p>
                                     {{ $comment->created_at->format('M d,Y \a\t h:i a') }}
                                 </p>
-
                             </div>
+
                             <div class="list-group-item">
                                 <p>
                                     {{ $comment->comment }}
@@ -113,9 +130,7 @@
                     </div>
                 @endforelse
             @endif
-
         </div>
     </div>
-
 
 @endsection

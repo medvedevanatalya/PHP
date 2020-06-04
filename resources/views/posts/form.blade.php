@@ -4,11 +4,6 @@ $update = isset($post);
 
 @extends('layouts.app')
 
-{{--@section('head')--}}
-{{--    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>--}}
-{{--    <script>tinymce.init({selector:'textarea'});</script>--}}
-{{--@endsection--}}
-
 @section('header')
     <h2 class="mb-3">{{ $update ? "Редактировать \"{$post->title}\"" : 'Новый пост'}}</h2>
 @endsection
