@@ -7,7 +7,10 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Blog') }}</title>
+    <title>{{ config('app.name', 'PandaBlog') }}</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/favicon.png">
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -19,13 +22,17 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href={{asset('css/style.css')}}>
+
 </head>
+
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Blog') }}
+                    <img src="/images/logo.png" alt="" width="70" height="76">
+                    {{ config('app.name', 'PandaBlog') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -37,9 +44,6 @@
                         <li>
                             <a href="{{ url('/') }}">Главная</a>
                         </li>
-
-                    </ul>
-                    </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -97,9 +101,36 @@
                 @yield('header')
             </div>
 
-            @yield('content')
+            <div class="row">
+                <div class="col-md-8">
+                    @yield('content')
+                </div>
+
+                <div class="col-md-4">
+
+                </div>
+            </div>
+
 
         </main>
     </div>
 </body>
+<footer class="footer-widget-section">
+    <div class="footer-copy">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-center">
+                        © 2020
+                        <i class="fa fa-heart"></i> | PandaBlog
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</footer>
 </html>
+
+
+

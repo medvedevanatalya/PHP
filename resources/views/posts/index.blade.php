@@ -1,14 +1,11 @@
 @extends('layouts.app')
 
 @section('header')
-        <h1>Добро пожаловать, {{ $user->name }}</h1>
+        <h3>Добро пожаловать, {{ $user->name }}</h3>
 @endsection
 
 @section('content')
-
-    <div class="row">
-        <div class="col-md-8">
-            <h1 class="my-4">All posts</h1>
+    <h4 class="my-4">Здесь вы можете посмореть все опубликованные посты</h4>
 
             @forelse($posts as $post)
 
@@ -80,8 +77,6 @@
 
             @endforelse
 
-        </div>
-    </div>
 
     {{ $posts->links() }}
 
